@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verdoro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6F4EE;
+  --surface:#FFFFFF;
+  --ink:#152A22;
+  --ink-soft:#4C5D55;
+  --green:#1E3F32;
+  --green-deep:#0F241C;
+  --gold:#B8975A;
+  --gold-soft:#E4D6B8;
+  --wine:#8C3A45;
+  --line:#E2DCC9;
+  --radius:2px;
+  --font-display:'Fraunces', serif;
+  --font-body:'Work Sans', sans-serif;
+  --font-mono:'IBM Plex Mono', monospace;
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);line-height:1.5;-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;}
+button{font-family:var(--font-body);cursor:pointer;}
+img{max-width:100%;display:block;}
+h1,h2,h3{font-family:var(--font-display);font-weight:600;margin:0;letter-spacing:-0.01em;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+.eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);}
+.hairline{height:1px;background:var(--line);border:0;margin:0;}
+
+/* ---------- header ---------- */
+header.site{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50;}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:1180px;margin:0 auto;gap:24px;}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-size:26px;font-weight:700;color:var(--green-deep);}
+.logo .mark{width:30px;height:30px;border-radius:50%;background:var(--green);position:relative;flex:none;}
+.logo .mark::after{content:'';position:absolute;top:6px;left:6px;width:8px;height:8px;border-radius:50%;background:var(--gold);}
+nav.cats{display:flex;gap:22px;flex-wrap:wrap;font-size:13.5px;font-weight:500;}
+nav.cats a{padding:6px 0;border-bottom:2px solid transparent;color:var(--ink-soft);}
+nav.cats a:hover,nav.cats a.active{color:var(--green-deep);border-color:var(--gold);}
+.top-actions{display:flex;align-items:center;gap:18px;font-size:13px;}
+.icon-btn{display:flex;align-items:center;gap:6px;padding:8px 10px;border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);font-size:13px;color:var(--ink);}
+.icon-btn:hover{border-color:var(--gold);}
+.badge{background:var(--wine);color:#fff;border-radius:50%;min-width:18px;height:18px;font-size:11px;display:inline-flex;align-items:center;justify-content:center;padding:0 4px;font-family:var(--font-mono);}
+
+/* ---------- banners / hero ---------- */
+.banner{background:var(--green-deep);color:#fff;padding:64px 24px;position:relative;overflow:hidden;}
+.banner-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;}
+.banner h1{font-size:46px;color:#fff;line-height:1.05;}
+.banner p{color:#CBD9CF;max-width:440px;margin-top:14px;font-size:15px;}
+.banner .price-strip{margin-top:24px;display:flex;gap:14px;align-items:center;font-family:var(--font-mono);}
+.banner img{border:1px solid rgba(255,255,255,.15);}
+.dots{display:flex;gap:6px;margin-top:26px;}
+.dots span{width:20px;height:2px;background:rgba(255,255,255,.3);}
+.dots span.on{background:var(--gold);}
+.cta{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--green-deep);padding:12px 22px;font-weight:600;font-size:13.5px;border:none;border-radius:var(--radius);margin-top:26px;}
+.cta.ghost{background:transparent;border:1px solid var(--gold-soft);color:#fff;}
+
+section{padding:56px 0;}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:28px;}
+.section-head h2{font-size:26px;}
+
+/* ---------- grids/cards ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:22px;}
+.cat-tile{position:relative;aspect-ratio:1/1;background:var(--green);overflow:hidden;border-radius:var(--radius);display:flex;align-items:flex-end;padding:16px;color:#fff;font-family:var(--font-display);font-size:19px;}
+.cat-tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55;}
+.cat-tile span{position:relative;z-index:1;}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:border-color .15s;}
+.card:hover{border-color:var(--gold);}
+.card .thumb{aspect-ratio:1/1;overflow:hidden;position:relative;background:#eee;}
+.card .thumb img{width:100%;height:100%;object-fit:cover;}
+.tag-2x1{position:absolute;top:8px;left:8px;background:var(--wine);color:#fff;font-family:var(--font-mono);font-size:10.5px;padding:4px 7px;letter-spacing:.05em;border-radius:2px;}
+.card .body{padding:14px 14px 16px;display:flex;flex-direction:column;gap:6px;flex:1;}
+.card .catlabel{font-family:var(--font-mono);font-size:10.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.08em;}
+.card h3{font-size:15px;font-weight:600;}
+.stars{color:var(--gold);font-size:12px;letter-spacing:1px;}
+.price-row{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:8px;}
+.price{font-family:var(--font-mono);font-weight:500;font-size:15px;}
+.btn{background:var(--green-deep);color:#fff;border:none;padding:9px 14px;font-size:12.5px;font-weight:600;border-radius:var(--radius);}
+.btn:hover{background:var(--green);}
+.btn.outline{background:transparent;border:1px solid var(--green-deep);color:var(--green-deep);}
+.btn.gold{background:var(--gold);color:var(--green-deep);}
+.btn.wine{background:var(--wine);color:#fff;}
+.btn.sm{padding:6px 10px;font-size:11.5px;}
+.cmp-check{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--ink-soft);margin-top:4px;}
+
+/* ---------- filters ---------- */
+.cat-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;margin-bottom:26px;}
+.filters{display:flex;gap:8px;flex-wrap:wrap;}
+.chip{padding:7px 14px;border:1px solid var(--line);border-radius:20px;font-size:12.5px;background:var(--surface);}
+.chip.active{border-color:var(--green-deep);background:var(--green-deep);color:#fff;}
+
+/* ---------- product page ---------- */
+.pdp{display:grid;grid-template-columns:1fr 1fr;gap:48px;}
+.gallery-main{aspect-ratio:1/1;background:#eee;overflow:hidden;border-radius:var(--radius);}
+.gallery-main img{width:100%;height:100%;object-fit:cover;}
+.gallery-thumbs{display:flex;gap:8px;margin-top:10px;}
+.gallery-thumbs img{width:64px;height:64px;object-fit:cover;border-radius:2px;border:2px solid transparent;cursor:pointer;}
+.gallery-thumbs img.active{border-color:var(--gold);}
+.pdp .catlabel{font-family:var(--font-mono);font-size:11px;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;}
+.pdp h1{font-size:30px;margin-top:6px;}
+.pdp .price{font-size:22px;margin:14px 0;}
+.opt-label{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);margin:16px 0 8px;}
+.opt-pills{display:flex;gap:8px;flex-wrap:wrap;}
+.opt-pill{padding:8px 14px;border:1px solid var(--line);border-radius:20px;font-size:12.5px;background:#fff;}
+.opt-pill.active{border-color:var(--green-deep);background:var(--green-deep);color:#fff;}
+.qty-row{display:flex;align-items:center;gap:10px;margin-top:18px;}
+.qty-row button{width:30px;height:30px;border:1px solid var(--line);background:#fff;border-radius:2px;}
+.desc{margin-top:22px;color:var(--ink-soft);font-size:14px;}
+
+.review{border-bottom:1px solid var(--line);padding:16px 0;}
+.review .who{font-weight:600;font-size:13.5px;}
+.review .txt{font-size:13.5px;color:var(--ink-soft);margin-top:4px;}
+.form-row{display:flex;flex-direction:column;gap:5px;margin-bottom:12px;}
+.form-row label{font-size:12px;font-weight:600;color:var(--ink-soft);}
+input[type=text],input[type=number],input[type=password],input[type=url],input[type=date],textarea,select{
+  padding:10px 11px;border:1px solid var(--line);border-radius:2px;font-family:var(--font-body);font-size:13.5px;background:#fff;
+}
+textarea{resize:vertical;min-height:70px;}
+
+/* comparison */
+table.compare{width:100%;border-collapse:collapse;font-size:13.5px;}
+table.compare th,table.compare td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;}
+table.compare th{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);background:#F1EEE4;}
+table.compare img{width:70px;height:70px;object-fit:cover;border-radius:2px;}
+
+/* cart / checkout */
+.cart-line{display:grid;grid-template-columns:64px 1fr auto auto;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line);}
+.cart-line img{width:64px;height:64px;object-fit:cover;border-radius:2px;}
+.cart-summary{background:var(--surface);border:1px solid var(--line);padding:20px;border-radius:2px;}
+.sum-row{display:flex;justify-content:space-between;font-size:13.5px;padding:6px 0;}
+.sum-row.total{font-weight:700;font-size:16px;border-top:1px solid var(--line);margin-top:8px;padding-top:12px;}
+.coupon-row{display:flex;gap:8px;margin:14px 0;}
+.pay-methods{display:flex;gap:10px;margin-top:16px;}
+.pay-btn{flex:1;padding:13px;border:1px solid var(--line);border-radius:2px;background:#fff;font-weight:600;font-size:13px;display:flex;align-items:center;justify-content:center;gap:8px;}
+.pay-btn.stripe{color:#635BFF;border-color:#635BFF;}
+.pay-btn.paypal{color:#003087;border-color:#003087;}
+.pay-btn.selected{background:var(--green-deep);color:#fff;border-color:var(--green-deep);}
+.pay-btn.selected.stripe,.pay-btn.selected.paypal{color:#fff;}
+
+/* admin */
+.admin-shell{display:grid;grid-template-columns:210px 1fr;min-height:70vh;}
+.admin-side{background:var(--green-deep);color:#fff;padding:22px 0;}
+.admin-side .brand{padding:0 20px 20px;font-family:var(--font-display);font-size:19px;border-bottom:1px solid rgba(255,255,255,.12);margin-bottom:10px;}
+.admin-side a{display:block;padding:11px 20px;font-size:13.5px;color:#CBD9CF;border-left:3px solid transparent;}
+.admin-side a.active,.admin-side a:hover{color:#fff;border-color:var(--gold);background:rgba(255,255,255,.05);}
+.admin-main{padding:30px;background:#FBFAF6;}
+.admin-card{background:#fff;border:1px solid var(--line);border-radius:2px;padding:20px;margin-bottom:18px;}
+.admin-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:13.5px;}
+.admin-grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.pill-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;}
+.pill-list span{background:#F1EEE4;padding:4px 9px;border-radius:12px;font-size:11.5px;display:flex;align-items:center;gap:5px;}
+.pill-list span b{cursor:pointer;color:var(--wine);}
+.login-box{max-width:380px;margin:70px auto;background:var(--surface);border:1px solid var(--line);padding:34px;border-radius:2px;}
+.notice{background:var(--gold-soft);border:1px solid var(--gold);padding:12px 14px;font-size:12.5px;border-radius:2px;margin-bottom:16px;}
+.thumb-x{position:absolute;top:4px;right:4px;background:rgba(0,0,0,.55);color:#fff;border:none;width:18px;height:18px;border-radius:50%;font-size:11px;line-height:1;}
+.img-input-row{display:flex;gap:8px;margin-bottom:6px;}
+.empty{padding:40px;text-align:center;color:var(--ink-soft);font-size:13.5px;}
+footer.site{background:var(--green-deep);color:#B9C7BE;padding:40px 24px;margin-top:40px;font-size:12.5px;}
+footer.site .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.toast{position:fixed;bottom:22px;right:22px;background:var(--green-deep);color:#fff;padding:13px 18px;border-radius:2px;font-size:13px;z-index:100;box-shadow:0 6px 20px rgba(0,0,0,.25);}
+.tabs{display:flex;gap:4px;margin-bottom:20px;border-bottom:1px solid var(--line);}
+.tabs button{background:none;border:none;padding:10px 16px;font-size:13px;font-weight:600;color:var(--ink-soft);border-bottom:2px solid transparent;}
+.tabs button.active{color:var(--green-deep);border-color:var(--gold);}
+@media(max-width:860px){
+  .banner-inner{grid-template-columns:1fr;}
+  .pdp{grid-template-columns:1fr;}
+  .admin-shell{grid-template-columns:1fr;}
+  nav.cats{display:none;}
+  .admin-grid2{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<div id="app"><div class="empty">Cargando Verdoro…</div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function(){
+/* =========================================================================
+   VERDORO — tienda online (versión desplegable)
+   Backend: Supabase (base de datos + autenticación de administrador)
+   Pagos:   PayPal (Smart Buttons, funciona sin servidor) y
+            Stripe (requiere la función serverless incluida en /api)
+   ========================================================================= */
+
+/* ======================= 1) CONFIGURA TU PROYECTO AQUÍ ======================= */
+const SUPABASE_URL = 'https://TU-PROYECTO.supabase.co';       // Ajustes > API > Project URL
+const SUPABASE_ANON_KEY = 'TU-CLAVE-ANON-PUBLICA';             // Ajustes > API > anon public
+const PAYPAL_CLIENT_ID = 'TU-PAYPAL-CLIENT-ID';                // developer.paypal.com > Apps
+/* =============================================================================== */
+
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+let state = {
+  route: {name:'home'},
+  categories: [], products: [], coupons: [], banners: [],
+  isAdmin: false, adminEmail: '',
+  cart: [], compareList: [], bannerIndex: 0,
+  toast: null, loaded: false, loadError: null
+};
+
+function escapeHtml(s){ return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function money(n){ return '€' + Number(n).toFixed(2); }
+function stars(avg){ const full = Math.round(avg); return '★★★★★☆☆☆☆☆'.slice(5-full,10-full).padEnd(5,'☆'); }
+function avgRating(p){ if(!p.reviews || !p.reviews.length) return 0; return p.reviews.reduce((a,r)=>a+r.rating,0)/p.reviews.length; }
+function catName(id){ return state.categories.find(c=>c.id===id)?.name || ''; }
+
+/* ---------------- carrito (localStorage: el sitio ya no vive dentro de Claude) ---------------- */
+function loadCart(){ try{ return JSON.parse(localStorage.getItem('verdoro_cart')||'[]'); }catch(e){ return []; } }
+function saveCart(){ localStorage.setItem('verdoro_cart', JSON.stringify(state.cart)); }
+
+/* ---------------- carga inicial desde Supabase ---------------- */
+async function loadAll(){
+  try{
+    const [{data:cats,error:e1},{data:prods,error:e2},{data:coups,error:e3},{data:bans,error:e4},{data:{session}}] = await Promise.all([
+      supabase.from('categories').select('*').order('name'),
+      supabase.from('products').select('*, reviews(*)').order('created_at',{ascending:false}),
+      supabase.from('coupons').select('*'),
+      supabase.from('banners').select('*').order('sort_order'),
+      supabase.auth.getSession()
+    ]);
+    if(e1) throw e1; if(e2) throw e2; if(e3) throw e3; if(e4) throw e4;
+
+    state.categories = (cats||[]).map(c=>({id:c.id, name:c.name}));
+    state.products = (prods||[]).map(p=>({
+      id:p.id, name:p.name, categoryId:p.category_id, price:Number(p.price), stock:p.stock,
+      description:p.description||'', promo2x1:!!p.promo2x1,
+      images:p.images||[], sizes:p.sizes||[], colors:p.colors||[],
+      reviews:(p.reviews||[]).map(r=>({id:r.id, user:r.user_name, rating:r.rating, comment:r.comment}))
+    }));
+    state.coupons = (coups||[]).map(c=>({code:c.code, type:c.type, value:Number(c.value), expiry:c.expiry}));
+    state.banners = (bans||[]).map(b=>({id:b.id, title:b.title, subtitle:b.subtitle, img:b.img}));
+    state.isAdmin = !!session;
+    state.adminEmail = session?.user?.email || '';
+    state.cart = loadCart();
+  }catch(e){
+    console.error('Verdoro: error cargando datos de Supabase', e);
+    state.loadError = e.message || String(e);
+  }
+  state.loaded = true; render();
+}
+
+/* ---------------- nav / toast ---------------- */
+function go(route){ state.route = route; window.scrollTo(0,0); render(); }
+function flash(msg){ state.toast = msg; render(); setTimeout(()=>{state.toast=null; render();},2400); }
+
+/* ---------------- carrito ---------------- */
+function addToCart(product,size,color,qty){
+  const line = state.cart.find(l=>l.productId===product.id && l.size===size && l.color===color);
+  if(line) line.qty += qty; else state.cart.push({productId:product.id,size,color,qty});
+  saveCart(); flash('Añadido al carrito: '+product.name);
+}
+function removeCartLine(idx){ state.cart.splice(idx,1); saveCart(); render(); }
+function setCartQty(idx,qty){ if(qty<1) qty=1; state.cart[idx].qty=qty; saveCart(); render(); }
+function cartLinesResolved(){ return state.cart.map(l=>({...l, product: state.products.find(p=>p.id===l.productId)})).filter(l=>l.product); }
+function computeTotals(couponCode){
+  const lines = cartLinesResolved();
+  let subtotal=0, promoDiscount=0;
+  lines.forEach(l=>{ subtotal += l.product.price*l.qty; if(l.product.promo2x1) promoDiscount += Math.floor(l.qty/2)*l.product.price; });
+  let couponDiscount=0, couponMsg='';
+  if(couponCode){
+    const c = state.coupons.find(c=>c.code.toUpperCase()===couponCode.toUpperCase());
+    if(!c) couponMsg='Cupón no válido.';
+    else if(c.expiry && new Date(c.expiry) < new Date()) couponMsg='Este cupón ha caducado.';
+    else{
+      const base = subtotal - promoDiscount;
+      couponDiscount = c.type==='percent' ? base*(c.value/100) : Math.min(c.value, base);
+      couponMsg = 'Cupón aplicado: '+c.code;
+    }
+  }
+  const total = Math.max(0, subtotal - promoDiscount - couponDiscount);
+  return {subtotal,promoDiscount,couponDiscount,couponMsg,total};
+}
+
+/* =========================================================================
+   RENDER — igual que la versión anterior (storefront + admin)
+   ========================================================================= */
+function render(){
+  const app = document.getElementById('app');
+  if(!state.loaded){ app.innerHTML = '<div class="empty">Cargando Verdoro…</div>'; return; }
+  if(state.loadError){
+    app.innerHTML = `<div class="wrap"><div class="empty">
+      No se pudo conectar con la base de datos.<br>
+      Revisa SUPABASE_URL / SUPABASE_ANON_KEY en el código y que las tablas existan (ver schema.sql).<br>
+      <span style="font-family:var(--font-mono);font-size:11px">${escapeHtml(state.loadError)}</span>
+    </div></div>`;
+    return;
+  }
+  const r = state.route;
+  let body = '';
+  if(r.name==='home') body = viewHome();
+  else if(r.name==='category') body = viewCategory(r.id);
+  else if(r.name==='product') body = viewProduct(r.id);
+  else if(r.name==='compare') body = viewCompare();
+  else if(r.name==='cart') body = viewCart();
+  else if(r.name==='checkout') body = viewCheckout();
+  else if(r.name==='confirm') body = viewConfirm(r.order);
+  else if(r.name==='admin-login') body = viewAdminLogin();
+  else if(r.name==='admin') body = viewAdmin(r.tab||'categories');
+  else body = viewHome();
+
+  app.innerHTML = `
+    ${r.name.startsWith('admin') ? '' : headerHtml(r)}
+    ${body}
+    ${r.name.startsWith('admin') ? '' : footerHtml()}
+    ${state.toast ? `<div class="toast">${escapeHtml(state.toast)}</div>` : ''}
+  `;
+  bindGlobalHandlers();
+  if(r.name==='checkout' && checkoutState.method==='paypal') mountPaypalButtons();
+}
+
+function headerHtml(r){
+  const cartCount = state.cart.reduce((a,l)=>a+l.qty,0);
+  return `
+  <header class="site">
+    <div class="topbar">
+      <a href="#" data-nav="home" class="logo"><span class="mark"></span>Verdoro</a>
+      <nav class="cats">
+        ${state.categories.map(c=>`<a href="#" data-nav="category" data-id="${c.id}" class="${r.name==='category'&&r.id===c.id?'active':''}">${escapeHtml(c.name)}</a>`).join('')}
+      </nav>
+      <div class="top-actions">
+        <a href="#" data-nav="compare" class="icon-btn">Comparar ${state.compareList.length?`<span class="badge">${state.compareList.length}</span>`:''}</a>
+        <a href="#" data-nav="cart" class="icon-btn">Carrito ${cartCount?`<span class="badge">${cartCount}</span>`:''}</a>
+        <a href="#" data-nav="${state.isAdmin?'admin':'admin-login'}" class="icon-btn">Admin</a>
+      </div>
+    </div>
+  </header>`;
+}
+function footerHtml(){
+  return `<footer class="site"><div class="wrap">
+    <div><strong style="font-family:var(--font-display);font-size:16px;color:#fff">Verdoro</strong><br>Verde + Oro — moda, calzado, tecnología y perfumería.</div>
+    <div>© 2026 Verdoro. Pagos seguros con Stripe y PayPal.</div>
+  </div></footer>`;
+}
+
+/* ---------------- HOME ---------------- */
+function viewHome(){
+  if(!state.banners.length && !state.products.length){
+    return `<div class="wrap"><section><div class="empty">Todavía no hay contenido. Entra en <b>Admin</b> para crear categorías, productos y banners (o carga los datos de ejemplo de schema.sql).</div></section></div>`;
+  }
+  const b = state.banners[state.bannerIndex] || state.banners[0];
+  const offers = state.products.filter(p=>p.promo2x1).slice(0,4);
+  const featured = state.products.slice(0,8);
+  return `
+  ${b?`<div class="banner">
+    <div class="banner-inner">
+      <div>
+        <span class="eyebrow" style="color:var(--gold)">Verdoro · ${state.bannerIndex+1}/${state.banners.length}</span>
+        <h1>${escapeHtml(b.title)}</h1>
+        <p>${escapeHtml(b.subtitle||'')}</p>
+        ${state.categories[0]?`<button class="cta" data-nav="category" data-id="${state.categories[0].id}">Ver colección</button>`:''}
+        <div class="dots">${state.banners.map((_,i)=>`<span class="${i===state.bannerIndex?'on':''}" data-banner-dot="${i}"></span>`).join('')}</div>
+      </div>
+      <img src="${b.img}" alt="${escapeHtml(b.title)}">
+    </div>
+  </div>`:''}
+  <div class="wrap">
+    ${state.categories.length?`<section>
+      <div class="section-head"><h2>Categorías</h2></div>
+      <div class="grid">
+        ${state.categories.map((c,i)=>`
+          <a class="cat-tile" data-nav="category" data-id="${c.id}">
+            <img src="https://picsum.photos/seed/verdorocat${i}/500/500">
+            <span>${escapeHtml(c.name)}</span>
+          </a>`).join('')}
+      </div>
+    </section>`:''}
+    ${offers.length?`<section>
+      <div class="section-head"><h2>Ofertas 2x1</h2><span class="eyebrow">Llévate 2, paga 1</span></div>
+      <div class="grid">${offers.map(productCard).join('')}</div>
+    </section>`:''}
+    ${featured.length?`<section>
+      <div class="section-head"><h2>Novedades</h2></div>
+      <div class="grid">${featured.map(productCard).join('')}</div>
+    </section>`:''}
+  </div>`;
+}
+function productCard(p){
+  const avg = avgRating(p);
+  return `
+  <div class="card">
+    <div class="thumb" data-nav="product" data-id="${p.id}" style="cursor:pointer">
+      ${p.promo2x1?'<span class="tag-2x1">2x1</span>':''}
+      <img src="${p.images[0]||'https://picsum.photos/seed/'+p.id+'/500/500'}">
+    </div>
+    <div class="body">
+      <span class="catlabel">${escapeHtml(catName(p.categoryId))}</span>
+      <h3 data-nav="product" data-id="${p.id}" style="cursor:pointer">${escapeHtml(p.name)}</h3>
+      <span class="stars">${stars(avg)} ${p.reviews?.length?`<span style="color:var(--ink-soft);font-family:var(--font-mono);font-size:11px">(${p.reviews.length})</span>`:''}</span>
+      <div class="price-row">
+        <span class="price">${money(p.price)}</span>
+        <button class="btn sm" data-quickadd="${p.id}">Añadir</button>
+      </div>
+      <label class="cmp-check"><input type="checkbox" data-compare="${p.id}" ${state.compareList.includes(p.id)?'checked':''}> Comparar</label>
+    </div>
+  </div>`;
+}
+
+/* ---------------- CATEGORY ---------------- */
+function viewCategory(catId){
+  const cat = state.categories.find(c=>c.id===catId) || state.categories[0];
+  const items = state.products.filter(p=>p.categoryId===cat?.id);
+  return `<div class="wrap"><section>
+    <div class="cat-header">
+      <h2>${escapeHtml(cat?.name||'Categoría')}</h2>
+      <div class="filters">${state.categories.map(c=>`<a class="chip ${c.id===cat?.id?'active':''}" data-nav="category" data-id="${c.id}">${escapeHtml(c.name)}</a>`).join('')}</div>
+    </div>
+    <div class="grid">${items.length?items.map(productCard).join(''):'<div class="empty">No hay productos en esta categoría todavía.</div>'}</div>
+  </section></div>`;
+}
+
+/* ---------------- PRODUCT ---------------- */
+let pdpState = {size:null, color:null, qty:1, activeImg:0};
+function viewProduct(id){
+  const p = state.products.find(p=>p.id===id);
+  if(!p) return '<div class="wrap"><div class="empty">Producto no encontrado.</div></div>';
+  if(pdpState.pid !== id){ pdpState = {pid:id, size:p.sizes[0]||null, color:p.colors[0]||null, qty:1, activeImg:0}; }
+  const avg = avgRating(p);
+  return `<div class="wrap"><section class="pdp">
+    <div>
+      <div class="gallery-main"><img src="${p.images[pdpState.activeImg]||p.images[0]}"></div>
+      ${p.images.length>1?`<div class="gallery-thumbs">${p.images.map((im,i)=>`<img src="${im}" class="${i===pdpState.activeImg?'active':''}" data-thumb="${i}">`).join('')}</div>`:''}
+    </div>
+    <div>
+      <span class="catlabel">${escapeHtml(catName(p.categoryId))} ${p.promo2x1?' · Oferta 2x1':''}</span>
+      <h1>${escapeHtml(p.name)}</h1>
+      <div class="stars">${stars(avg)} <span style="color:var(--ink-soft);font-family:var(--font-mono);font-size:12px">${p.reviews?.length||0} reseñas</span></div>
+      <div class="price">${money(p.price)}</div>
+      <div class="desc">${escapeHtml(p.description)}</div>
+      ${p.sizes.length?`<div class="opt-label">Talla</div><div class="opt-pills">${p.sizes.map(s=>`<span class="opt-pill ${pdpState.size===s?'active':''}" data-size="${escapeHtml(s)}">${escapeHtml(s)}</span>`).join('')}</div>`:''}
+      ${p.colors.length?`<div class="opt-label">Color</div><div class="opt-pills">${p.colors.map(c=>`<span class="opt-pill ${pdpState.color===c?'active':''}" data-color="${escapeHtml(c)}">${escapeHtml(c)}</span>`).join('')}</div>`:''}
+      <div class="opt-label">Cantidad</div>
+      <div class="qty-row"><button data-qty="-1">−</button><span>${pdpState.qty}</span><button data-qty="1">+</button></div>
+      <div style="display:flex;gap:10px;margin-top:22px">
+        <button class="btn gold" data-addtocart="${p.id}">Añadir al carrito</button>
+        <label class="cmp-check" style="border:1px solid var(--line);padding:9px 14px;border-radius:2px"><input type="checkbox" data-compare="${p.id}" ${state.compareList.includes(p.id)?'checked':''}> Comparar</label>
+      </div>
+      <p style="font-size:11.5px;color:var(--ink-soft);margin-top:10px">Stock disponible: ${p.stock} uds.</p>
+    </div>
+  </section>
+  <section>
+    <h2 style="margin-bottom:18px">Reseñas y valoraciones</h2>
+    <div class="admin-card" style="max-width:520px">
+      <form data-review-form="${p.id}">
+        <div class="form-row"><label>Tu nombre</label><input type="text" name="who" required></div>
+        <div class="form-row"><label>Valoración</label><select name="rating">${[5,4,3,2,1].map(n=>`<option value="${n}">${n} estrellas</option>`).join('')}</select></div>
+        <div class="form-row"><label>Comentario</label><textarea name="txt" required></textarea></div>
+        <button class="btn" type="submit">Publicar reseña</button>
+      </form>
+    </div>
+    ${(p.reviews||[]).slice().reverse().map(r=>`<div class="review"><div class="who">${escapeHtml(r.user)} · <span class="stars">${stars(r.rating)}</span></div><div class="txt">${escapeHtml(r.comment)}</div></div>`).join('') || '<p style="color:var(--ink-soft);font-size:13.5px">Todavía no hay reseñas para este producto.</p>'}
+  </section></div>`;
+}
+
+/* ---------------- COMPARE ---------------- */
+function viewCompare(){
+  const items = state.products.filter(p=>state.compareList.includes(p.id));
+  if(!items.length) return '<div class="wrap"><section><div class="empty">Añade productos a comparar desde el catálogo (checkbox “Comparar”).</div></section></div>';
+  const rows = [
+    ['Imagen', p=>`<img src="${p.images[0]}">`],['Categoría', p=>escapeHtml(catName(p.categoryId))],
+    ['Precio', p=>money(p.price)],['Valoración', p=>`${stars(avgRating(p))} (${p.reviews?.length||0})`],
+    ['Tallas', p=>escapeHtml(p.sizes.join(', ')||'—')],['Colores', p=>escapeHtml(p.colors.join(', ')||'—')],
+    ['Oferta', p=>p.promo2x1?'2x1 disponible':'—'],['Stock', p=>p.stock+' uds.']
+  ];
+  return `<div class="wrap"><section>
+    <div class="section-head"><h2>Tabla comparativa</h2><button class="btn outline sm" data-clear-compare>Vaciar comparación</button></div>
+    <div style="overflow-x:auto"><table class="compare"><thead><tr><th></th>${items.map(p=>`<th>${escapeHtml(p.name)}</th>`).join('')}</tr></thead>
+    <tbody>${rows.map(([label,fn])=>`<tr><th>${label}</th>${items.map(p=>`<td>${fn(p)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
+  </section></div>`;
+}
+
+/* ---------------- CART / CHECKOUT ---------------- */
+let cartCouponInput = '';
+function viewCart(){
+  const lines = cartLinesResolved();
+  const t = computeTotals(cartCouponInput);
+  if(!lines.length) return '<div class="wrap"><section><div class="empty">Tu carrito está vacío. <a href="#" data-nav="home" style="color:var(--gold);text-decoration:underline">Ir a la tienda</a></div></section></div>';
+  return `<div class="wrap"><section>
+    <h2 style="margin-bottom:20px">Tu carrito</h2>
+    <div style="display:grid;grid-template-columns:1.6fr .9fr;gap:36px">
+      <div>${lines.map((l,idx)=>`
+        <div class="cart-line"><img src="${l.product.images[0]}">
+          <div><div style="font-weight:600;font-size:14px">${escapeHtml(l.product.name)} ${l.product.promo2x1?'<span class="eyebrow" style="color:var(--wine)">2x1</span>':''}</div>
+          <div style="font-size:12px;color:var(--ink-soft)">${l.size?'Talla '+escapeHtml(l.size):''} ${l.color?' · '+escapeHtml(l.color):''}</div>
+          <div style="margin-top:6px"><input type="number" min="1" value="${l.qty}" style="width:60px" data-cart-qty="${idx}"></div></div>
+          <div class="price">${money(l.product.price*l.qty)}</div>
+          <button class="btn outline sm" data-cart-remove="${idx}">Quitar</button>
+        </div>`).join('')}
+      </div>
+      <div class="cart-summary">
+        <div class="coupon-row"><input type="text" id="couponInput" placeholder="Código de cupón" value="${escapeHtml(cartCouponInput)}"><button class="btn sm" id="applyCoupon">Aplicar</button></div>
+        ${t.couponMsg?`<div style="font-size:12px;color:${t.couponDiscount?'var(--green)':'var(--wine)'};margin-bottom:8px">${escapeHtml(t.couponMsg)}</div>`:''}
+        <div class="sum-row"><span>Subtotal</span><span>${money(t.subtotal)}</span></div>
+        ${t.promoDiscount?`<div class="sum-row"><span>Descuento 2x1</span><span>-${money(t.promoDiscount)}</span></div>`:''}
+        ${t.couponDiscount?`<div class="sum-row"><span>Cupón</span><span>-${money(t.couponDiscount)}</span></div>`:''}
+        <div class="sum-row total"><span>Total</span><span>${money(t.total)}</span></div>
+        <button class="btn gold" style="width:100%;margin-top:14px" data-nav="checkout">Ir a pagar</button>
+      </div>
+    </div>
+  </section></div>`;
+}
+
+let checkoutState = {method:null, processing:false};
+function viewCheckout(){
+  const t = computeTotals(cartCouponInput);
+  return `<div class="wrap"><section style="max-width:560px;margin:0 auto">
+    <h2 style="margin-bottom:20px">Finalizar compra</h2>
+    <div class="admin-card">
+      <div class="form-row"><label>Nombre completo</label><input type="text" id="ck_name" placeholder="Nombre y apellidos"></div>
+      <div class="form-row"><label>Dirección de envío</label><input type="text" id="ck_addr" placeholder="Calle, número, ciudad, CP"></div>
+      <div class="form-row"><label>Email</label><input type="text" id="ck_email" placeholder="tu@email.com"></div>
+    </div>
+    <div class="admin-card">
+      <div class="sum-row total"><span>Total a pagar</span><span>${money(t.total)}</span></div>
+      <div class="opt-label" style="margin-top:14px">Método de pago</div>
+      <div class="pay-methods">
+        <button class="pay-btn stripe ${checkoutState.method==='stripe'?'selected':''}" data-paymethod="stripe">Stripe</button>
+        <button class="pay-btn paypal ${checkoutState.method==='paypal'?'selected':''}" data-paymethod="paypal">PayPal</button>
+      </div>
+      ${checkoutState.method==='stripe'?`
+        <button class="btn gold" style="width:100%;margin-top:18px" id="payNow" ${checkoutState.processing?'disabled':''}>${checkoutState.processing?'Redirigiendo a Stripe…':'Pagar '+money(t.total)+' con Stripe'}</button>
+        <p style="font-size:11px;color:var(--ink-soft);margin-top:10px">Necesita la función serverless de /api (ver README). Si no está desplegada, se simula el pago.</p>
+      `:''}
+      ${checkoutState.method==='paypal'?`<div id="paypal-button-container" style="margin-top:18px"></div>
+        <p style="font-size:11px;color:var(--ink-soft);margin-top:10px">Pago real con PayPal (modo sandbox hasta que pongas tu Client ID de producción).</p>
+      `:''}
+    </div>
+  </section></div>`;
+}
+function viewConfirm(order){
+  return `<div class="wrap"><section style="max-width:520px;margin:60px auto;text-align:center">
+    <div class="eyebrow" style="color:var(--green)">Pedido confirmado</div>
+    <h2 style="margin:10px 0">¡Gracias por tu compra en Verdoro!</h2>
+    <p style="color:var(--ink-soft)">Número de pedido <strong>${escapeHtml(order.id)}</strong> — total ${money(order.total)}, pagado con ${order.method==='stripe'?'Stripe':'PayPal'}.</p>
+    <button class="btn gold" style="margin-top:20px" data-nav="home">Seguir comprando</button>
+  </section></div>`;
+}
+
+/* ---------------- pago: registrar pedido en Supabase ---------------- */
+async function placeOrder(method, providerRef){
+  const lines = cartLinesResolved();
+  const t = computeTotals(cartCouponInput);
+  const name = document.getElementById('ck_name')?.value || '';
+  const email = document.getElementById('ck_email')?.value || '';
+  const address = document.getElementById('ck_addr')?.value || '';
+  try{
+    const {data: order, error} = await supabase.from('orders').insert({
+      total: t.total, method, customer_name: name, customer_email: email, customer_address: address, provider_ref: providerRef||null
+    }).select().single();
+    if(error) throw error;
+    const items = lines.map(l=>({ order_id: order.id, product_id: l.product.id, qty: l.qty, size: l.size, color: l.color, price: l.product.price }));
+    if(items.length) await supabase.from('order_items').insert(items);
+    return order.id;
+  }catch(e){
+    console.error('No se pudo guardar el pedido en Supabase', e);
+    return 'VD-' + Math.floor(100000+Math.random()*900000);
+  }
+}
+async function finishCheckout(method, providerRef){
+  const t = computeTotals(cartCouponInput);
+  const orderId = await placeOrder(method, providerRef);
+  state.cart = []; saveCart();
+  checkoutState = {method:null, processing:false}; cartCouponInput = '';
+  go({name:'confirm', order:{id:orderId, total:t.total, method}});
+}
+
+function mountPaypalButtons(){
+  const container = document.getElementById('paypal-button-container');
+  if(!container) return;
+  const t = computeTotals(cartCouponInput);
+  function render(){
+    container.innerHTML = '';
+    window.paypal.Buttons({
+      style:{color:'gold', shape:'rect', label:'pay'},
+      createOrder: (data, actions) => actions.order.create({ purchase_units: [{ amount: { value: t.total.toFixed(2), currency_code:'EUR' } }] }),
+      onApprove: async (data, actions) => { const details = await actions.order.capture(); await finishCheckout('paypal', details.id); },
+      onError: (err) => { console.error(err); flash('Hubo un problema con el pago de PayPal.'); }
+    }).render('#paypal-button-container');
+  }
+  if(window.paypal){ render(); return; }
+  const s = document.createElement('script');
+  s.src = `https://www.paypal.com/sdk/js?client-id=${encodeURIComponent(PAYPAL_CLIENT_ID)}&currency=EUR`;
+  s.onload = render;
+  document.body.appendChild(s);
+}
+
+/* ---------------- ADMIN ---------------- */
+function viewAdminLogin(){
+  return `<div class="wrap"><div class="login-box">
+    <div class="eyebrow">Panel de administración</div>
+    <h2 style="margin:8px 0 20px">Acceso Verdoro Admin</h2>
+    <form id="adminLoginForm">
+      <div class="form-row"><label>Email</label><input type="text" name="email" required></div>
+      <div class="form-row"><label>Contraseña</label><input type="password" name="password" required></div>
+      <button class="btn gold" style="width:100%" type="submit">Entrar</button>
+    </form>
+    <p style="font-size:11.5px;color:var(--ink-soft);margin-top:14px">El administrador se crea desde el panel de Supabase (Authentication → Users). No hay registro público.</p>
+    <a href="#" data-nav="home" style="font-size:12.5px;color:var(--ink-soft);display:block;margin-top:8px">← Volver a la tienda</a>
+  </div></div>`;
+}
+
+let adminProductForm = null;
+function viewAdmin(tab){
+  if(!state.isAdmin) return viewAdminLogin();
+  return `<div class="admin-shell">
+    <aside class="admin-side">
+      <div class="brand">Verdoro Admin</div>
+      <a class="${tab==='categories'?'active':''}" data-admintab="categories">Categorías</a>
+      <a class="${tab==='products'?'active':''}" data-admintab="products">Productos</a>
+      <a class="${tab==='coupons'?'active':''}" data-admintab="coupons">Cupones</a>
+      <a class="${tab==='banners'?'active':''}" data-admintab="banners">Banners</a>
+      <a class="${tab==='orders'?'active':''}" data-admintab="orders">Pedidos</a>
+      <a class="${tab==='security'?'active':''}" data-admintab="security">Seguridad</a>
+      <a href="#" data-nav="home" style="margin-top:16px;border-top:1px solid rgba(255,255,255,.12);padding-top:16px">Ver tienda</a>
+      <a href="#" id="adminLogout">Cerrar sesión (${escapeHtml(state.adminEmail)})</a>
+    </aside>
+    <main class="admin-main">
+      ${tab==='categories'?adminCategories(): tab==='products'?adminProducts(): tab==='coupons'?adminCoupons(): tab==='banners'?adminBanners(): tab==='orders'?adminOrdersTab(): adminSecurity()}
+    </main>
+  </div>`;
+}
+function adminCategories(){
+  return `<div class="admin-card"><h3 style="margin-bottom:14px">Nueva categoría</h3>
+    <form id="newCatForm" style="display:flex;gap:10px"><input type="text" name="name" placeholder="Nombre de categoría" required style="flex:1"><button class="btn gold" type="submit">Crear</button></form>
+  </div>
+  <div class="admin-card"><h3 style="margin-bottom:10px">Categorías (${state.categories.length})</h3>
+    ${state.categories.map(c=>`<div class="admin-row"><span>${escapeHtml(c.name)}</span><button class="btn outline sm" data-delcat="${c.id}">Eliminar</button></div>`).join('')}
+  </div>`;
+}
+function adminProducts(){
+  const editing = adminProductForm;
+  return `<div class="admin-card"><h3 style="margin-bottom:14px">${editing?.id?'Editar producto':'Nuevo producto'}</h3>
+    <form id="productForm">
+      <div class="admin-grid2">
+        <div class="form-row"><label>Nombre</label><input type="text" name="name" value="${escapeHtml(editing?.name||'')}" required></div>
+        <div class="form-row"><label>Categoría</label><select name="categoryId">${state.categories.map(c=>`<option value="${c.id}" ${editing?.categoryId===c.id?'selected':''}>${escapeHtml(c.name)}</option>`).join('')}</select></div>
+        <div class="form-row"><label>Precio (€)</label><input type="number" step="0.01" name="price" value="${editing?.price??''}" required></div>
+        <div class="form-row"><label>Stock</label><input type="number" name="stock" value="${editing?.stock??0}" required></div>
+      </div>
+      <div class="form-row"><label>Descripción</label><textarea name="description">${escapeHtml(editing?.description||'')}</textarea></div>
+      <div class="form-row"><label><input type="checkbox" name="promo2x1" ${editing?.promo2x1?'checked':''}> Activar oferta 2x1</label></div>
+      <div class="form-row"><label>Fotos del producto (URLs, puedes añadir varias)</label>
+        <div id="imgRows">${(editing?.images?.length?editing.images:['']).map(u=>`<div class="img-input-row"><input type="url" class="imgurl" placeholder="https://..." value="${escapeHtml(u)}"><button type="button" class="btn outline sm removeImgRow">✕</button></div>`).join('')}</div>
+        <button type="button" class="btn outline sm" id="addImgRow">+ Añadir otra foto</button>
+      </div>
+      <div class="form-row"><label>Tallas (separadas por coma, opcional)</label><input type="text" name="sizes" value="${escapeHtml((editing?.sizes||[]).join(', '))}"></div>
+      <div class="form-row"><label>Colores (separados por coma, opcional)</label><input type="text" name="colors" value="${escapeHtml((editing?.colors||[]).join(', '))}"></div>
+      <div style="display:flex;gap:10px;margin-top:10px">
+        <button class="btn gold" type="submit">${editing?.id?'Guardar cambios':'Crear producto'}</button>
+        ${editing?.id?'<button type="button" class="btn outline" id="cancelEditProduct">Cancelar</button>':''}
+      </div>
+    </form>
+  </div>
+  <div class="admin-card"><h3 style="margin-bottom:10px">Catálogo (${state.products.length})</h3>
+    ${state.products.map(p=>`<div class="admin-row">
+      <span style="display:flex;align-items:center;gap:10px"><img src="${p.images[0]}" style="width:36px;height:36px;object-fit:cover;border-radius:2px">${escapeHtml(p.name)} ${p.promo2x1?'<span class="eyebrow" style="color:var(--wine)">2x1</span>':''} · ${money(p.price)}</span>
+      <span style="display:flex;gap:8px"><button class="btn outline sm" data-editprod="${p.id}">Editar</button><button class="btn outline sm" data-delprod="${p.id}">Eliminar</button></span>
+    </div>`).join('')}
+  </div>`;
+}
+function adminCoupons(){
+  return `<div class="admin-card"><h3 style="margin-bottom:14px">Nuevo cupón</h3>
+    <form id="couponForm" class="admin-grid2">
+      <div class="form-row"><label>Código</label><input type="text" name="code" required placeholder="Ej: VERANO20"></div>
+      <div class="form-row"><label>Tipo</label><select name="type"><option value="percent">Porcentaje %</option><option value="fixed">Importe fijo €</option></select></div>
+      <div class="form-row"><label>Valor</label><input type="number" step="0.01" name="value" required></div>
+      <div class="form-row"><label>Caduca</label><input type="date" name="expiry"></div>
+      <button class="btn gold" type="submit" style="grid-column:1/-1">Crear cupón</button>
+    </form>
+  </div>
+  <div class="admin-card"><h3 style="margin-bottom:10px">Cupones activos (${state.coupons.length})</h3>
+    ${state.coupons.map(c=>`<div class="admin-row"><span><b>${escapeHtml(c.code)}</b> — ${c.type==='percent'?c.value+'%':money(c.value)} ${c.expiry?'· caduca '+c.expiry:''}</span><button class="btn outline sm" data-delcoupon="${escapeHtml(c.code)}">Eliminar</button></div>`).join('')}
+  </div>`;
+}
+function adminBanners(){
+  return `<div class="admin-card"><h3 style="margin-bottom:14px">Nuevo banner</h3>
+    <form id="bannerForm">
+      <div class="form-row"><label>Título</label><input type="text" name="title" required></div>
+      <div class="form-row"><label>Subtítulo</label><input type="text" name="subtitle"></div>
+      <div class="form-row"><label>URL de imagen</label><input type="url" name="img" placeholder="https://..." required></div>
+      <button class="btn gold" type="submit">Añadir banner</button>
+    </form>
+  </div>
+  <div class="admin-card"><h3 style="margin-bottom:10px">Banners (${state.banners.length})</h3>
+    ${state.banners.map(b=>`<div class="admin-row"><span style="display:flex;align-items:center;gap:10px"><img src="${b.img}" style="width:44px;height:34px;object-fit:cover;border-radius:2px">${escapeHtml(b.title)}</span><button class="btn outline sm" data-delbanner="${b.id}">Eliminar</button></div>`).join('')}
+  </div>`;
+}
+let ordersCache = null;
+function adminOrdersTab(){
+  if(ordersCache===null){ fetchOrders(); return `<div class="admin-card">Cargando pedidos…</div>`; }
+  return `<div class="admin-card"><h3 style="margin-bottom:10px">Pedidos recientes (${ordersCache.length})</h3>
+    ${ordersCache.length? ordersCache.map(o=>`<div class="admin-row"><span>#${escapeHtml(o.id.slice(0,8))} — ${escapeHtml(o.customer_name||'Sin nombre')} · ${money(o.total)} · ${o.method}</span><span style="color:var(--ink-soft);font-size:12px">${new Date(o.created_at).toLocaleString()}</span></div>`).join('') : '<div class="empty">Todavía no hay pedidos.</div>'}
+  </div>`;
+}
+async function fetchOrders(){
+  const {data, error} = await supabase.from('orders').select('*').order('created_at',{ascending:false}).limit(50);
+  ordersCache = error ? [] : data;
+  render();
+}
+function adminSecurity(){
+  return `<div class="notice">Los productos, categorías, cupones y banners son públicos para lectura (los ve cualquier visitante) pero solo un administrador autenticado en Supabase puede crearlos, editarlos o borrarlos.</div>
+  <div class="admin-card"><h3 style="margin-bottom:14px">Cambiar mi contraseña de administrador</h3>
+    <form id="adminCredForm"><div class="form-row"><label>Nueva contraseña</label><input type="password" name="password" placeholder="Mínimo 6 caracteres"></div><button class="btn gold" type="submit">Actualizar contraseña</button></form>
+  </div>
+  <div class="admin-card"><h3 style="margin-bottom:10px">Buenas prácticas para producción</h3>
+    <ul style="font-size:13px;color:var(--ink-soft);line-height:1.8;padding-left:18px">
+      <li>Las claves secretas de Stripe/PayPal nunca deben estar en este archivo; van en variables de entorno del servidor (ver /api).</li>
+      <li>Revisa las políticas RLS de Supabase periódicamente: solo el admin debería poder escribir en categories/products/coupons/banners.</li>
+      <li>Antes de cobrar de verdad, valida los precios en el servidor (no confíes solo en lo que envía el navegador).</li>
+      <li>Activa copias de seguridad automáticas en Supabase (Settings → Database → Backups).</li>
+      <li>Usa un dominio con HTTPS (lo da gratis Netlify/Vercel) y activa 2FA en tu cuenta de Supabase y de Stripe/PayPal.</li>
+    </ul>
+  </div>`;
+}
+
+/* ---------------- eventos ---------------- */
+function bindGlobalHandlers(){
+  const app = document.getElementById('app');
+
+  app.querySelectorAll('[data-nav]').forEach(el=>el.addEventListener('click', e=>{
+    e.preventDefault();
+    const name = el.getAttribute('data-nav'); const id = el.getAttribute('data-id');
+    if(name==='admin' && !state.isAdmin){ go({name:'admin-login'}); return; }
+    if(name==='admin') ordersCache = null;
+    go({name, id});
+  }));
+  app.querySelectorAll('[data-banner-dot]').forEach(el=>el.addEventListener('click', ()=>{ state.bannerIndex=parseInt(el.getAttribute('data-banner-dot')); render(); }));
+  app.querySelectorAll('[data-compare]').forEach(el=>el.addEventListener('change', ()=>{
+    const id = el.getAttribute('data-compare');
+    if(el.checked){ if(!state.compareList.includes(id)) state.compareList.push(id); } else { state.compareList = state.compareList.filter(x=>x!==id); }
+    render();
+  }));
+  const clearCmp = app.querySelector('[data-clear-compare]'); if(clearCmp) clearCmp.addEventListener('click', ()=>{ state.compareList=[]; render(); });
+  app.querySelectorAll('[data-quickadd]').forEach(el=>el.addEventListener('click', ()=>{ const p=state.products.find(p=>p.id===el.getAttribute('data-quickadd')); if(p) addToCart(p,p.sizes[0]||null,p.colors[0]||null,1); }));
+
+  app.querySelectorAll('[data-thumb]').forEach(el=>el.addEventListener('click', ()=>{ pdpState.activeImg=parseInt(el.getAttribute('data-thumb')); render(); }));
+  app.querySelectorAll('[data-size]').forEach(el=>el.addEventListener('click', ()=>{ pdpState.size=el.getAttribute('data-size'); render(); }));
+  app.querySelectorAll('[data-color]').forEach(el=>el.addEventListener('click', ()=>{ pdpState.color=el.getAttribute('data-color'); render(); }));
+  app.querySelectorAll('[data-qty]').forEach(el=>el.addEventListener('click', ()=>{ pdpState.qty=Math.max(1,pdpState.qty+parseInt(el.getAttribute('data-qty'))); render(); }));
+  const addBtn = app.querySelector('[data-addtocart]'); if(addBtn) addBtn.addEventListener('click', ()=>{ const p=state.products.find(p=>p.id===addBtn.getAttribute('data-addtocart')); addToCart(p,pdpState.size,pdpState.color,pdpState.qty); });
+
+  const reviewForm = app.querySelector('[data-review-form]');
+  if(reviewForm) reviewForm.addEventListener('submit', async e=>{
+    e.preventDefault();
+    const pid = reviewForm.getAttribute('data-review-form');
+    const fd = new FormData(reviewForm);
+    const {error} = await supabase.from('reviews').insert({ product_id: pid, user_name: fd.get('who'), rating: parseInt(fd.get('rating')), comment: fd.get('txt') });
+    if(error){ flash('No se pudo publicar la reseña'); return; }
+    flash('Gracias por tu reseña'); await loadAll(); go({name:'product', id:pid});
+  });
+
+  app.querySelectorAll('[data-cart-remove]').forEach(el=>el.addEventListener('click', ()=>removeCartLine(parseInt(el.getAttribute('data-cart-remove')))));
+  app.querySelectorAll('[data-cart-qty]').forEach(el=>el.addEventListener('change', ()=>setCartQty(parseInt(el.getAttribute('data-cart-qty')), parseInt(el.value)||1)));
+  const applyCoupon = app.querySelector('#applyCoupon'); if(applyCoupon) applyCoupon.addEventListener('click', ()=>{ cartCouponInput = document.getElementById('couponInput').value.trim(); render(); });
+
+  app.querySelectorAll('[data-paymethod]').forEach(el=>el.addEventListener('click', ()=>{ checkoutState.method = el.getAttribute('data-paymethod'); render(); }));
+  const payNow = app.querySelector('#payNow');
+  if(payNow) payNow.addEventListener('click', async ()=>{
+    checkoutState.processing = true; render();
+    const lines = cartLinesResolved(); const t = computeTotals(cartCouponInput);
+    try{
+      const res = await fetch('/api/create-checkout-session', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ items: lines.map(l=>({name:l.product.name, price:l.product.price, qty:l.qty})), total: t.total, customerEmail: document.getElementById('ck_email')?.value })
+      });
+      if(!res.ok) throw new Error('sin backend');
+      const data = await res.json();
+      if(data.url){ window.location.href = data.url; return; }
+      throw new Error('respuesta inválida');
+    }catch(e){
+      flash('Stripe no está configurado todavía — se simula el pago.');
+      setTimeout(()=>{ finishCheckout('stripe', null); }, 1200);
+    }
+  });
+
+  const adminLoginForm = app.querySelector('#adminLoginForm');
+  if(adminLoginForm) adminLoginForm.addEventListener('submit', async e=>{
+    e.preventDefault();
+    const fd = new FormData(adminLoginForm);
+    const {data, error} = await supabase.auth.signInWithPassword({ email:(fd.get('email')||'').trim(), password:(fd.get('password')||'').trim() });
+    if(error){ flash('Email o contraseña incorrectos'); return; }
+    state.isAdmin = true; state.adminEmail = data.user.email; go({name:'admin', tab:'categories'});
+  });
+  const adminLogout = app.querySelector('#adminLogout');
+  if(adminLogout) adminLogout.addEventListener('click', async e=>{ e.preventDefault(); await supabase.auth.signOut(); state.isAdmin=false; go({name:'home'}); });
+  app.querySelectorAll('[data-admintab]').forEach(el=>el.addEventListener('click', ()=>{ adminProductForm=null; if(el.getAttribute('data-admintab')==='orders') ordersCache=null; go({name:'admin', tab:el.getAttribute('data-admintab')}); }));
+
+  const newCatForm = app.querySelector('#newCatForm');
+  if(newCatForm) newCatForm.addEventListener('submit', async e=>{
+    e.preventDefault();
+    const name = new FormData(newCatForm).get('name').trim(); if(!name) return;
+    const {error} = await supabase.from('categories').insert({name});
+    if(error){ flash('No se pudo crear (¿sesión de admin activa?)'); return; }
+    flash('Categoría creada'); await loadAll(); go({name:'admin', tab:'categories'});
+  });
+  app.querySelectorAll('[data-delcat]').forEach(el=>el.addEventListener('click', async ()=>{
+    const id = el.getAttribute('data-delcat');
+    if(state.products.some(p=>p.categoryId===id)){ flash('No se puede eliminar: tiene productos asociados'); return; }
+    await supabase.from('categories').delete().eq('id', id); await loadAll(); go({name:'admin', tab:'categories'});
+  }));
+
+  const addImgRow = app.querySelector('#addImgRow');
+  if(addImgRow) addImgRow.addEventListener('click', ()=>{
+    const div = document.createElement('div'); div.className='img-input-row';
+    div.innerHTML = '<input type="url" class="imgurl" placeholder="https://..."><button type="button" class="btn outline sm removeImgRow">✕</button>';
+    document.getElementById('imgRows').appendChild(div);
+    div.querySelector('.removeImgRow').addEventListener('click', ()=>div.remove());
+  });
+  app.querySelectorAll('.removeImgRow').forEach(btn=>btn.addEventListener('click', ()=>btn.closest('.img-input-row').remove()));
+
+  const productForm = app.querySelector('#productForm');
+  if(productForm) productForm.addEventListener('submit', async e=>{
+    e.preventDefault();
+    const fd = new FormData(productForm);
+    const images = Array.from(app.querySelectorAll('.imgurl')).map(i=>i.value.trim()).filter(Boolean);
+    const row = {
+      name: fd.get('name').trim(), category_id: fd.get('categoryId'), price: parseFloat(fd.get('price'))||0, stock: parseInt(fd.get('stock'))||0,
+      description: fd.get('description').trim(), promo2x1: fd.get('promo2x1')==='on',
+      images: images.length?images:['https://picsum.photos/seed/'+Math.random().toString(36).slice(2)+'/700/700'],
+      sizes: fd.get('sizes').split(',').map(s=>s.trim()).filter(Boolean),
+      colors: fd.get('colors').split(',').map(s=>s.trim()).filter(Boolean)
+    };
+    let error;
+    if(adminProductForm?.id){ ({error} = await supabase.from('products').update(row).eq('id', adminProductForm.id)); }
+    else{ ({error} = await supabase.from('products').insert(row)); }
+    if(error){ flash('No se pudo guardar (¿sesión de admin activa?)'); return; }
+    flash(adminProductForm?.id?'Producto actualizado':'Producto creado');
+    adminProductForm = null; await loadAll(); go({name:'admin', tab:'products'});
+  });
+  app.querySelectorAll('[data-editprod]').forEach(el=>el.addEventListener('click', ()=>{ adminProductForm = state.products.find(p=>p.id===el.getAttribute('data-editprod')); render(); }));
+  const cancelEdit = app.querySelector('#cancelEditProduct'); if(cancelEdit) cancelEdit.addEventListener('click', ()=>{ adminProductForm=null; render(); });
+  app.querySelectorAll('[data-delprod]').forEach(el=>el.addEventListener('click', async ()=>{ await supabase.from('products').delete().eq('id', el.getAttribute('data-delprod')); await loadAll(); go({name:'admin', tab:'products'}); }));
+
+  const couponForm = app.querySelector('#couponForm');
+  if(couponForm) couponForm.addEventListener('submit', async e=>{
+    e.preventDefault();
+    const fd = new FormData(couponForm);
+    const {error} = await supabase.from('coupons').insert({ code: fd.get('code').trim().toUpperCase(), type: fd.get('type'), value: parseFloat(fd.get('value'))||0, expiry: fd.get('expiry')||null });
+    if(error){ flash('No se pudo crear el cupón (¿código repetido?)'); return; }
+    flash('Cupón creado'); await loadAll(); go({name:'admin', tab:'coupons'});
+  });
+  app.querySelectorAll('[data-delcoupon]').forEach(el=>el.addEventListener('click', async ()=>{ await supabase.from('coupons').delete().eq('code', el.getAttribute('data-delcoupon')); await loadAll(); go({name:'admin', tab:'coupons'}); }));
+
+  const bannerForm = app.querySelector('#bannerForm');
+  if(bannerForm) bannerForm.addEventListener('submit', async e=>{
+    e.preventDefault();
+    const fd = new FormData(bannerForm);
+    const {error} = await supabase.from('banners').insert({ title: fd.get('title').trim(), subtitle: fd.get('subtitle').trim(), img: fd.get('img').trim(), sort_order: state.banners.length });
+    if(error){ flash('No se pudo crear el banner'); return; }
+    flash('Banner añadido'); await loadAll(); go({name:'admin', tab:'banners'});
+  });
+  app.querySelectorAll('[data-delbanner]').forEach(el=>el.addEventListener('click', async ()=>{ await supabase.from('banners').delete().eq('id', el.getAttribute('data-delbanner')); await loadAll(); go({name:'admin', tab:'banners'}); }));
+
+  const credForm = app.querySelector('#adminCredForm');
+  if(credForm) credForm.addEventListener('submit', async e=>{
+    e.preventDefault();
+    const pass = new FormData(credForm).get('password').trim();
+    if(!pass || pass.length<6){ flash('La contraseña debe tener al menos 6 caracteres'); return; }
+    const {error} = await supabase.auth.updateUser({ password: pass });
+    if(error){ flash('No se pudo actualizar la contraseña'); return; }
+    flash('Contraseña actualizada');
+  });
+}
+
+window.addEventListener('error', function(ev){
+  if(!state.loaded){ document.getElementById('app').innerHTML = '<div class="empty">No se pudo cargar Verdoro (' + escapeHtml(ev.message||'error desconocido') + ').</div>'; }
+});
+loadAll();
+})();
+</script>
+</body>
+</html>
