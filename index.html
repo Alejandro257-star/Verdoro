@@ -8,16 +8,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#F6F4EE;
+  --bg:#F7F7F7;
   --surface:#FFFFFF;
-  --ink:#152A22;
-  --ink-soft:#4C5D55;
-  --green:#1E3F32;
-  --green-deep:#0F241C;
-  --gold:#B8975A;
-  --gold-soft:#E4D6B8;
+  --ink:#111111;
+  --ink-soft:#5C5C5C;
+  --green:#1A1A1A;
+  --green-deep:#000000;
+  --gold:#2E2E2E;
+  --gold-soft:#E8E8E8;
+  --enamel:#F5F2EA;
   --wine:#8C3A45;
-  --line:#E2DCC9;
+  --line:#E0E0E0;
   --radius:2px;
   --font-display:'Fraunces', serif;
   --font-body:'Work Sans', sans-serif;
@@ -38,7 +39,7 @@ header.site{background:var(--surface);border-bottom:1px solid var(--line);positi
 .topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:1180px;margin:0 auto;gap:24px;}
 .logo{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-size:26px;font-weight:700;color:var(--green-deep);}
 .logo .mark{width:30px;height:30px;border-radius:50%;background:var(--green);position:relative;flex:none;}
-.logo .mark::after{content:'';position:absolute;top:6px;left:6px;width:8px;height:8px;border-radius:50%;background:var(--gold);}
+.logo .mark::after{content:'';position:absolute;top:6px;left:6px;width:8px;height:8px;border-radius:50%;background:var(--enamel);}
 nav.cats{display:flex;gap:22px;flex-wrap:wrap;font-size:13.5px;font-weight:500;}
 nav.cats a{padding:6px 0;border-bottom:2px solid transparent;color:var(--ink-soft);}
 nav.cats a:hover,nav.cats a.active{color:var(--green-deep);border-color:var(--gold);}
@@ -53,12 +54,12 @@ nav.cats a:hover,nav.cats a.active{color:var(--green-deep);border-color:var(--go
 .banner h1{font-size:46px;color:#fff;line-height:1.05;}
 .banner p{color:#CBD9CF;max-width:440px;margin-top:14px;font-size:15px;}
 .banner .price-strip{margin-top:24px;display:flex;gap:14px;align-items:center;font-family:var(--font-mono);}
-.banner img{border:1px solid rgba(255,255,255,.15);}
+.banner img{border:1px solid rgba(255,255,255,.15);filter:grayscale(1) contrast(1.05);}
 .dots{display:flex;gap:6px;margin-top:26px;}
 .dots span{width:20px;height:2px;background:rgba(255,255,255,.3);}
-.dots span.on{background:var(--gold);}
-.cta{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--green-deep);padding:12px 22px;font-weight:600;font-size:13.5px;border:none;border-radius:var(--radius);margin-top:26px;}
-.cta.ghost{background:transparent;border:1px solid var(--gold-soft);color:#fff;}
+.dots span.on{background:var(--enamel);}
+.cta{display:inline-flex;align-items:center;gap:8px;background:var(--enamel);color:var(--green-deep);padding:12px 22px;font-weight:600;font-size:13.5px;border:none;border-radius:var(--radius);margin-top:26px;}
+.cta.ghost{background:transparent;border:1px solid rgba(255,255,255,.4);color:#fff;}
 
 section{padding:56px 0;}
 .section-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:28px;}
@@ -83,7 +84,7 @@ section{padding:56px 0;}
 .btn{background:var(--green-deep);color:#fff;border:none;padding:9px 14px;font-size:12.5px;font-weight:600;border-radius:var(--radius);}
 .btn:hover{background:var(--green);}
 .btn.outline{background:transparent;border:1px solid var(--green-deep);color:var(--green-deep);}
-.btn.gold{background:var(--gold);color:var(--green-deep);}
+.btn.gold{background:var(--enamel);color:var(--green-deep);border:1px solid var(--ink);}
 .btn.wine{background:var(--wine);color:#fff;}
 .btn.sm{padding:6px 10px;font-size:11.5px;}
 .cmp-check{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--ink-soft);margin-top:4px;}
@@ -147,7 +148,7 @@ table.compare img{width:70px;height:70px;object-fit:cover;border-radius:2px;}
 .admin-side{background:var(--green-deep);color:#fff;padding:22px 0;}
 .admin-side .brand{padding:0 20px 20px;font-family:var(--font-display);font-size:19px;border-bottom:1px solid rgba(255,255,255,.12);margin-bottom:10px;}
 .admin-side a{display:block;padding:11px 20px;font-size:13.5px;color:#CBD9CF;border-left:3px solid transparent;}
-.admin-side a.active,.admin-side a:hover{color:#fff;border-color:var(--gold);background:rgba(255,255,255,.05);}
+.admin-side a.active,.admin-side a:hover{color:#fff;border-color:var(--enamel);background:rgba(255,255,255,.05);}
 .admin-main{padding:30px;background:#FBFAF6;}
 .admin-card{background:#fff;border:1px solid var(--line);border-radius:2px;padding:20px;margin-bottom:18px;}
 .admin-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:13.5px;}
@@ -191,7 +192,7 @@ footer.site .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
 /* ======================= 1) CONFIGURA TU PROYECTO AQUÍ ======================= */
 const SUPABASE_URL = 'https://gnqtgqyiddgiwcgdywuy.supabase.co';       // Ajustes > API > Project URL
 const SUPABASE_ANON_KEY = 'sb_publishable_XsEKI9bC5QRMvOrCghNXGA_Ln8xE_5G';             // Ajustes > API > anon public
-const PAYPAL_CLIENT_ID = 'ARCn-KoLbzv6C6i6YkdK_5WLw2VR2o31JUEVnV0Zx8pp_ebYb6wdzro-FypM80hmK5t7Ao83v8C_g3yQ';                // developer.paypal.com > Apps
+const PAYPAL_CLIENT_ID = 'TU-PAYPAL-CLIENT-ID';                // developer.paypal.com > Apps
 /* =============================================================================== */
 
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -226,7 +227,7 @@ async function loadAll(){
     ]);
     if(e1) throw e1; if(e2) throw e2; if(e3) throw e3; if(e4) throw e4;
 
-    state.categories = (cats||[]).map(c=>({id:c.id, name:c.name}));
+    state.categories = (cats||[]).map(c=>({id:c.id, name:c.name, image:c.image||''}));
     state.products = (prods||[]).map(p=>({
       id:p.id, name:p.name, categoryId:p.category_id, price:Number(p.price), stock:p.stock,
       description:p.description||'', promo2x1:!!p.promo2x1,
@@ -326,7 +327,9 @@ function headerHtml(r){
       <div class="top-actions">
         <a href="#" data-nav="compare" class="icon-btn">Comparar ${state.compareList.length?`<span class="badge">${state.compareList.length}</span>`:''}</a>
         <a href="#" data-nav="cart" class="icon-btn">Carrito ${cartCount?`<span class="badge">${cartCount}</span>`:''}</a>
-        <a href="#" data-nav="${state.isAdmin?'admin':'admin-login'}" class="icon-btn">Admin</a>
+        <a href="#" data-nav="${state.isAdmin?'admin':'admin-login'}" class="icon-btn" title="Admin" style="padding:8px 10px">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        </a>
       </div>
     </div>
   </header>`;
@@ -350,7 +353,7 @@ function viewHome(){
   ${b?`<div class="banner">
     <div class="banner-inner">
       <div>
-        <span class="eyebrow" style="color:var(--gold)">Verdoro · ${state.bannerIndex+1}/${state.banners.length}</span>
+        <span class="eyebrow" style="color:var(--enamel)">Verdoro · ${state.bannerIndex+1}/${state.banners.length}</span>
         <h1>${escapeHtml(b.title)}</h1>
         <p>${escapeHtml(b.subtitle||'')}</p>
         ${state.categories[0]?`<button class="cta" data-nav="category" data-id="${state.categories[0].id}">Ver colección</button>`:''}
@@ -365,7 +368,7 @@ function viewHome(){
       <div class="grid">
         ${state.categories.map((c,i)=>`
           <a class="cat-tile" data-nav="category" data-id="${c.id}">
-            <img src="https://picsum.photos/seed/verdorocat${i}/500/500">
+            <img src="${c.image || 'https://picsum.photos/seed/verdorocat'+i+'/500/500'}">
             <span>${escapeHtml(c.name)}</span>
           </a>`).join('')}
       </div>
@@ -624,12 +627,21 @@ function viewAdmin(tab){
     </main>
   </div>`;
 }
+let adminCatForm = null;
 function adminCategories(){
-  return `<div class="admin-card"><h3 style="margin-bottom:14px">Nueva categoría</h3>
-    <form id="newCatForm" style="display:flex;gap:10px"><input type="text" name="name" placeholder="Nombre de categoría" required style="flex:1"><button class="btn gold" type="submit">Crear</button></form>
+  const editing = adminCatForm;
+  return `<div class="admin-card"><h3 style="margin-bottom:14px">${editing?.id?'Editar categoría':'Nueva categoría'}</h3>
+    <form id="newCatForm">
+      <div class="form-row"><label>Nombre</label><input type="text" name="name" placeholder="Nombre de categoría" value="${escapeHtml(editing?.name||'')}" required></div>
+      <div class="form-row"><label>URL de foto (opcional)</label><input type="url" name="image" placeholder="https://..." value="${escapeHtml(editing?.image||'')}"></div>
+      <div style="display:flex;gap:10px">
+        <button class="btn gold" type="submit">${editing?.id?'Guardar cambios':'Crear'}</button>
+        ${editing?.id?'<button type="button" class="btn outline" id="cancelEditCat">Cancelar</button>':''}
+      </div>
+    </form>
   </div>
   <div class="admin-card"><h3 style="margin-bottom:10px">Categorías (${state.categories.length})</h3>
-    ${state.categories.map(c=>`<div class="admin-row"><span>${escapeHtml(c.name)}</span><button class="btn outline sm" data-delcat="${c.id}">Eliminar</button></div>`).join('')}
+    ${state.categories.map(c=>`<div class="admin-row"><span style="display:flex;align-items:center;gap:10px">${c.image?`<img src="${c.image}" style="width:36px;height:36px;object-fit:cover;border-radius:2px">`:''}${escapeHtml(c.name)}</span><span style="display:flex;gap:8px"><button class="btn outline sm" data-editcat="${c.id}">Editar</button><button class="btn outline sm" data-delcat="${c.id}">Eliminar</button></span></div>`).join('')}
   </div>`;
 }
 function adminProducts(){
@@ -788,16 +800,23 @@ function bindGlobalHandlers(){
   });
   const adminLogout = app.querySelector('#adminLogout');
   if(adminLogout) adminLogout.addEventListener('click', async e=>{ e.preventDefault(); await supabase.auth.signOut(); state.isAdmin=false; go({name:'home'}); });
-  app.querySelectorAll('[data-admintab]').forEach(el=>el.addEventListener('click', ()=>{ adminProductForm=null; if(el.getAttribute('data-admintab')==='orders') ordersCache=null; go({name:'admin', tab:el.getAttribute('data-admintab')}); }));
+  app.querySelectorAll('[data-admintab]').forEach(el=>el.addEventListener('click', ()=>{ adminProductForm=null; adminCatForm=null; if(el.getAttribute('data-admintab')==='orders') ordersCache=null; go({name:'admin', tab:el.getAttribute('data-admintab')}); }));
 
   const newCatForm = app.querySelector('#newCatForm');
   if(newCatForm) newCatForm.addEventListener('submit', async e=>{
     e.preventDefault();
-    const name = new FormData(newCatForm).get('name').trim(); if(!name) return;
-    const {error} = await supabase.from('categories').insert({name});
-    if(error){ flash('No se pudo crear (¿sesión de admin activa?)'); return; }
-    flash('Categoría creada'); await loadAll(); go({name:'admin', tab:'categories'});
+    const fd = new FormData(newCatForm);
+    const name = fd.get('name').trim(); if(!name) return;
+    const image = fd.get('image').trim();
+    let error;
+    if(adminCatForm?.id){ ({error} = await supabase.from('categories').update({name, image: image || null}).eq('id', adminCatForm.id)); }
+    else { ({error} = await supabase.from('categories').insert({name, image: image || null})); }
+    if(error){ flash('No se pudo guardar (¿sesión de admin activa?)'); return; }
+    flash(adminCatForm?.id?'Categoría actualizada':'Categoría creada');
+    adminCatForm = null; await loadAll(); go({name:'admin', tab:'categories'});
   });
+  app.querySelectorAll('[data-editcat]').forEach(el=>el.addEventListener('click', ()=>{ adminCatForm = state.categories.find(c=>c.id===el.getAttribute('data-editcat')); render(); }));
+  const cancelEditCat = app.querySelector('#cancelEditCat'); if(cancelEditCat) cancelEditCat.addEventListener('click', ()=>{ adminCatForm=null; render(); });
   app.querySelectorAll('[data-delcat]').forEach(el=>el.addEventListener('click', async ()=>{
     const id = el.getAttribute('data-delcat');
     if(state.products.some(p=>p.categoryId===id)){ flash('No se puede eliminar: tiene productos asociados'); return; }
@@ -875,3 +894,4 @@ loadAll();
 </script>
 </body>
 </html>
+
