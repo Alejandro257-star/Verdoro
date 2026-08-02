@@ -68,7 +68,7 @@ section{padding:56px 0;}
 /* ---------- grids/cards ---------- */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:22px;}
 .cat-tile{position:relative;aspect-ratio:1/1;background:var(--green);overflow:hidden;border-radius:var(--radius);display:flex;align-items:flex-end;padding:16px;color:#fff;font-family:var(--font-display);font-size:19px;}
-.cat-tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55;}
+.cat-tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
 .cat-tile span{position:relative;z-index:1;}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:border-color .15s;}
 .card:hover{border-color:var(--gold);}
@@ -192,7 +192,7 @@ footer.site .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
 /* ======================= 1) CONFIGURA TU PROYECTO AQUÍ ======================= */
 const SUPABASE_URL = 'https://gnqtgqyiddgiwcgdywuy.supabase.co';       // Ajustes > API > Project URL
 const SUPABASE_ANON_KEY = 'sb_publishable_XsEKI9bC5QRMvOrCghNXGA_Ln8xE_5G';             // Ajustes > API > anon public
-const PAYPAL_CLIENT_ID = 'TU-PAYPAL-CLIENT-ID';                // developer.paypal.com > Apps
+const PAYPAL_CLIENT_ID = 'BAATJNV5MY1JWCQKb81OKhat7hTp8_q2eC33qcb8tvk9Eb252s30XL6aivOZP2fu-AZzNXmIoYCtGXoqFs';                // developer.paypal.com > Apps (LIVE)
 /* =============================================================================== */
 
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -369,7 +369,6 @@ function viewHome(){
         ${state.categories.map((c,i)=>`
           <a class="cat-tile" data-nav="category" data-id="${c.id}">
             <img src="${c.image || 'https://picsum.photos/seed/verdorocat'+i+'/500/500'}">
-            <span>${escapeHtml(c.name)}</span>
           </a>`).join('')}
       </div>
     </section>`:''}
